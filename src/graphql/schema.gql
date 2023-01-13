@@ -1,0 +1,12 @@
+scalar Datetime
+
+type Restaurant {
+  id: String
+  name: String
+  created_at: Datetime
+  updated_at: Datetime
+}
+
+type Query {
+  restaurants: [Restaurant]!
+}
