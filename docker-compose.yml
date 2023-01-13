@@ -1,0 +1,24 @@
+version: '3.9'
+
+services:
+  database:
+    image: mysql
+    container_name: pdi_mysql
+    environment:
+      - MYSQL_DATABASE=pdifood
+      - MYSQL_ROOT_PASSWORD=123456
+    ports:
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+volumes:
+  db:
+    driver: local
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.1.0/24
