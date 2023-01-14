@@ -7,6 +7,10 @@ type Restaurant {
   updated_at: Datetime
 }
 
+type Mutation {
+  createRestaurant(name: String!): Restaurant
+}
+
 type Query {
   restaurants(id: String): [Restaurant]!
 }
