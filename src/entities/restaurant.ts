@@ -2,7 +2,7 @@ import { randomUUID as uuid } from "node:crypto";
 import Sequelize, { Model } from "sequelize";
 import { sequelize } from "../database";
 import { GraphQLError } from "graphql";
-import { cnpjIsValid, formatCnpj } from "../utils/cpf-cnpj";
+import { cnpjIsValid, cnpjToNumber } from "../helpers/cpf-cnpj";
 
 interface CreateRestaurantAttributes {
   name: string;
@@ -37,7 +37,7 @@ Restaurant.init(
       validate: {
         validCnpj() {
           if (!cnpjIsValid(this.cnpj)) {
-            throw new GraphQLError("CPNJ isn't valid.");
+            throw new GraphQLError("CNPJ isn't valid.");
           }
         },
       },
@@ -62,7 +62,7 @@ Restaurant.init(
 
 Restaurant.beforeCreate((restaurant) => {
   restaurant.id = uuid();
-  restaurant.cnpj = formatCnpj(restaurant.cnpj);
+  restaurant.cnpj = cnpjToNumber(restaurant.cnpj)
 });
 
 // Todo.belongsTo(User, {

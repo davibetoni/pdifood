@@ -7,3 +7,7 @@ export function cnpjIsValid(value: string) {
 export function formatCnpj(value: string){
   return cnpj.format(value)
 }
+
+export function cnpjToNumber(value: string){
+  return value.replace(/\D+/g, '')
+}

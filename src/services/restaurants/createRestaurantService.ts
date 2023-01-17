@@ -1,6 +1,7 @@
 import { GraphQLError } from "graphql";
 import { Op } from "sequelize";
 import { Restaurant } from "../../entities/restaurant";
+import { cnpjToNumber } from "../../helpers/cpf-cnpj";
 
 interface RestaurantAttributes {
   name: string;
@@ -9,14 +10,18 @@ interface RestaurantAttributes {
 
 export async function createRestaurantService(content: RestaurantAttributes) {
   const { name, cnpj } = content;
-  const newRestaurant = Restaurant.build({ name, cnpj });
-  const restaurants = await Restaurant.findAll({
-    where: { [Op.or]: [{ name }, { cnpj }] },
+
+  const validCnpj = cnpjToNumber(cnpj);
+
+  const restaurants = await Restaurant.findOne({
+    where: { [Op.or]: [{ name }, { cnpj: validCnpj }] },
   });
 
-  if (restaurants?.length !== 0) {
+  if (restaurants) {
     throw new GraphQLError("CNPJ or Fantasy Name is already in use.");
   }
+
+  const newRestaurant = Restaurant.build({ name, cnpj });
 
   try {
     return await newRestaurant.save();
