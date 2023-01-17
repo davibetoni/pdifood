@@ -1,4 +1,4 @@
-import { GetRestaurantByIdService } from "../services/restaurants/getRestaurantByIdService";
+import { getRestaurantByIdService } from "../services/restaurants/getRestaurantByIdService";
 import { getRestaurantsService } from "../services/restaurants/getRestaurantsService";
 
 interface getRestaurantsArgs {
@@ -10,7 +10,7 @@ export async function getRestaurantsResolver(_, args: getRestaurantsArgs) {
   const { id, query } = args;
 
   if (id) {
-    return await GetRestaurantByIdService(id);
+    return await getRestaurantByIdService(id);
   }
   return await getRestaurantsService(query);
 }
