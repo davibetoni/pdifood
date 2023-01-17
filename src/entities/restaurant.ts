@@ -3,6 +3,7 @@ import Sequelize, { Model } from "sequelize";
 import { sequelize } from "../database";
 import { GraphQLError } from "graphql";
 import { cnpjIsValid, cnpjToNumber } from "../helpers/cpf-cnpj";
+import { Product } from "./product";
 
 interface CreateRestaurantAttributes {
   name: string;
@@ -62,27 +63,27 @@ Restaurant.init(
 
 Restaurant.beforeCreate((restaurant) => {
   restaurant.id = uuid();
-  restaurant.cnpj = cnpjToNumber(restaurant.cnpj)
+  restaurant.cnpj = cnpjToNumber(restaurant.cnpj);
 });
 
-// Todo.belongsTo(User, {
-//   as: 'user',
-//   onDelete: 'CASCADE',
-//   onUpdate: 'CASCADE',
-//   foreignKey: {
-//     allowNull: false,
-//     name: 'userId',
-//     field: 'user_id',
-//   },
-// })
-// ​
-// User.hasMany(Todo, {
-//   as: 'todos',
-//   onDelete: 'CASCADE',
-//   onUpdate: 'CASCADE',
-//   foreignKey: {
-//     allowNull: false,
-//     name: 'userId',
-//     field: 'user_id',
-//   },
-// })
+Restaurant.hasMany(Product, {
+  as: "products",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+  foreignKey: {
+    allowNull: false,
+    name: "restaurantId",
+    field: "restaurant_id",
+  },
+});
+
+Product.belongsTo(Restaurant, {
+  as: "restaurant",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+  foreignKey: {
+    allowNull: false,
+    name: "restaurantId",
+    field: "restaurant_id",
+  },
+});

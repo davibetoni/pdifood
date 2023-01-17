@@ -1,5 +1,6 @@
 import { GraphQLError } from "graphql";
 import { Op } from "sequelize";
+import { Product } from "../../entities/product";
 import { Restaurant } from "../../entities/restaurant";
 
 export async function getRestaurantsService(query: String) {
@@ -15,7 +16,10 @@ export async function getRestaurantsService(query: String) {
   }
 
   try {
-    return await Restaurant.findAll({ where });
+    return await Restaurant.findAll({
+      where,
+      include: { model: Product, as: "products" },
+    });
   } catch (err) {
     throw new GraphQLError(err);
   }

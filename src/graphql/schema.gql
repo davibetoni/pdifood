@@ -1,17 +1,57 @@
 scalar Datetime
+scalar Json
 
+# ------ Inputs ---------
 input RestaurantInput {
   name: String
   cnpj: String
 }
 
-type Restaurant{
-  id: String
+input ProductInput {
+  restaurant_id: String
   name: String
-  cnpj: String
+  price: Float
+  ingredients: Json
+  image_url: String
+}
+# -------------------------
+
+# ------- Querys ---------
+input ProductQuery {
+  name: String
+  price: Float
+  order: OrderProduct
+}
+
+enum OrderProduct {
+  moreThan
+  lessThan
+  asc
+  desc
+}
+# -------------------------
+
+# ------- Types ---------
+type Product {
+  id: String
+  restaurant_id: String
+  name: String
+  price: Float
+  ingredients: Json
+  image_url: String
   created_at: Datetime
   updated_at: Datetime
 }
+
+type Restaurant {
+  id: String
+  name: String
+  cnpj: String
+  products: [Product]
+  created_at: Datetime
+  updated_at: Datetime
+}
+# -------------------------
 
 type Mutation {
   createRestaurant(content: RestaurantInput!): Restaurant
@@ -19,4 +59,5 @@ type Mutation {
 
 type Query {
   restaurants(id: String, query: String): [Restaurant]!
+  products(id: String, query: ProductQuery): [Product]!
 }
