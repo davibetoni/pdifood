@@ -1,16 +1,22 @@
 scalar Datetime
 
-type Restaurant {
+input RestaurantInput {
+  name: String
+  cnpj: String
+}
+
+type Restaurant{
   id: String
   name: String
+  cnpj: String
   created_at: Datetime
   updated_at: Datetime
 }
 
 type Mutation {
-  createRestaurant(name: String!): Restaurant
+  createRestaurant(content: RestaurantInput!): Restaurant
 }
 
 type Query {
-  restaurants(id: String): [Restaurant]!
+  restaurants(id: String, query: String): [Restaurant]!
 }

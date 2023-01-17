@@ -1,10 +1,10 @@
-import { createRestaurantService } from "../services/restaurants/createRestaurantService"
+import { createRestaurantService } from "../services/restaurants/createRestaurantService";
 
-interface RestaurantAttributes {
-  name: string
+interface RestaurantContent {
+  content: { name: string; cnpj: string };
 }
 
-export async function createRestaurantResolver(_, args: RestaurantAttributes) {
-  const { name } = args
-  return await createRestaurantService(name)
+export async function createRestaurantResolver(_, args: RestaurantContent) {
+  const { content } = args
+  return await createRestaurantService(content);
 }
