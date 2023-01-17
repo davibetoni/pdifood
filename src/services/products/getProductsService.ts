@@ -29,12 +29,12 @@ export async function getProductsService(params: ProductsParams) {
     switch (orderBy) {
       case "moreThan":
         where = {
-          [Op.or]: [{ ...where }, { price: { [Op.gte]: price } }],
+          [Op.and]: [{ ...where }, { price: { [Op.gte]: price } }],
         };
         break;
       case "lessThan":
         where = {
-          [Op.or]: [{ ...where }, { price: { [Op.lte]: price } }],
+          [Op.and]: [{ ...where }, { price: { [Op.lte]: price } }],
         };
         break;
       case "asc":
