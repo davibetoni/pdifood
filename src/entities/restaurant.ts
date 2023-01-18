@@ -12,8 +12,8 @@ interface CreateRestaurantAttributes {
 
 interface RestaurantAttributes extends CreateRestaurantAttributes {
   id: string;
-  created_at: Date;
-  updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export class Restaurant
@@ -23,8 +23,8 @@ export class Restaurant
   id: string;
   cnpj: string;
   name: string;
-  created_at: Date;
-  updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 Restaurant.init(
@@ -46,10 +46,10 @@ Restaurant.init(
     name: {
       type: Sequelize.STRING,
     },
-    created_at: {
+    createdAt: {
       type: Sequelize.DATE,
     },
-    updated_at: {
+    updatedAt: {
       type: Sequelize.DATE,
     },
   },

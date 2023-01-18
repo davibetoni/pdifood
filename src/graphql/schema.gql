@@ -3,16 +3,16 @@ scalar Json
 
 # ------ Inputs ---------
 input RestaurantInput {
-  name: String
-  cnpj: String
+  name: String!
+  cnpj: String!
 }
 
 input ProductInput {
-  restaurant_id: String
-  name: String
-  price: Float
+  restaurantId: String!
+  name: String!
+  price: Float!
   ingredients: Json
-  image_url: String
+  imageUrl: String
 }
 # -------------------------
 
@@ -34,13 +34,13 @@ enum OrderProduct {
 # ------- Types ---------
 type Product {
   id: String
-  restaurant_id: String
+  restaurantId: String
   name: String
   price: Float
   ingredients: Json
-  image_url: String
-  created_at: Datetime
-  updated_at: Datetime
+  imageUrl: String
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 
 type Restaurant {
@@ -48,13 +48,14 @@ type Restaurant {
   name: String
   cnpj: String
   products: [Product]
-  created_at: Datetime
-  updated_at: Datetime
+  createdAt: Datetime
+  updatedAt: Datetime
 }
 # -------------------------
 
 type Mutation {
   createRestaurant(content: RestaurantInput!): Restaurant
+  createProduct(content: ProductInput!): Product
 }
 
 type Query {

@@ -4,17 +4,17 @@ import { uuid } from "uuidv4";
 import { sequelize } from "../database";
 
 interface CreateProductAtributtes {
-  restaurant_id: string;
+  restaurantId: string;
   name: string;
   price: number;
   ingredients: Json;
-  image_url: string;
+  imageUrl: string;
 }
 
 interface ProductAtributtes extends CreateProductAtributtes {
   id: string;
-  created_at: Date;
-  updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export class Product
@@ -22,13 +22,13 @@ export class Product
   implements ProductAtributtes
 {
   id: string;
-  restaurant_id: string;
+  restaurantId: string;
   name: string;
   price: number;
   ingredients: Json;
-  image_url: string;
-  created_at: Date;
-  updated_at: Date;
+  imageUrl: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 Product.init(
@@ -37,7 +37,7 @@ Product.init(
       type: Sequelize.STRING,
       primaryKey: true,
     },
-    restaurant_id: {
+    restaurantId: {
       type: Sequelize.STRING,
     },
     name: {
@@ -49,13 +49,13 @@ Product.init(
     ingredients: {
       type: Sequelize.JSON,
     },
-    image_url: {
+    imageUrl: {
       type: Sequelize.STRING,
     },
-    created_at: {
+    createdAt: {
       type: Sequelize.DATE,
     },
-    updated_at: {
+    updatedAt: {
       type: Sequelize.DATE,
     },
   },

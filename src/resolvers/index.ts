@@ -1,5 +1,5 @@
 import { createRestaurantResolver } from "./createRestaurantResolver";
-import { getProductResolver } from "./getProductResolver";
+import { getProductResolver } from "./getProductsResolver";
 import { getRestaurantsResolver } from "./getRestaurantsResolver";
 
 export const resolvers = {

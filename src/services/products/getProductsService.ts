@@ -38,10 +38,10 @@ export async function getProductsService(params: ProductsParams) {
         };
         break;
       case "asc":
-        order.push([["price", "ASC"]]);
+        order.push(["price", "ASC"]);
         break;
       case "desc":
-        order.push([["price", "DESC"]]);
+        order.push(["price", "DESC"]);
         break;
     }
   }
