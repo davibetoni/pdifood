@@ -1,4 +1,4 @@
-import { createRestaurantService } from "../services/restaurants/createRestaurantService";
+import { createRestaurantService } from "../../services/restaurants/createRestaurantService";
 
 interface RestaurantContent {
   content: { name: string; cnpj: string };

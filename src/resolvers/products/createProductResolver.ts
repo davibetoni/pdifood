@@ -1,5 +1,5 @@
 import { Json } from "sequelize/types/utils";
-import { createProductService } from "../services/products/createProductService";
+import { createProductService } from "../../services/products/createProductService";
 
 interface ProductContent {
   content: {

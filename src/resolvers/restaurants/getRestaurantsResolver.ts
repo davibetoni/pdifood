@@ -1,5 +1,5 @@
-import { getRestaurantByIdService } from "../services/restaurants/getRestaurantByIdService";
-import { getRestaurantsService } from "../services/restaurants/getRestaurantsService";
+import { getRestaurantByIdService } from "../../services/restaurants/getRestaurantByIdService";
+import { getRestaurantsService } from "../../services/restaurants/getRestaurantsService";
 
 interface getRestaurantsArgs {
   id: string;

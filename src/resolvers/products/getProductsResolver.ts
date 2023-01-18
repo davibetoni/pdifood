@@ -1,4 +1,4 @@
-import { getProductsService } from "../services/products/getProductsService";
+import { getProductsService } from "../../services/products/getProductsService";
 
 enum OrderProduct {
   moreThan,

@@ -1,7 +1,7 @@
-import { createProductResolver } from "./createProductResolver";
-import { createRestaurantResolver } from "./createRestaurantResolver";
-import { getProductResolver } from "./getProductsResolver";
-import { getRestaurantsResolver } from "./getRestaurantsResolver";
+import { createProductResolver } from "./products/createProductResolver";
+import { createRestaurantResolver } from "./restaurants/createRestaurantResolver";
+import { getProductResolver } from "./products/getProductsResolver";
+import { getRestaurantsResolver } from "./restaurants/getRestaurantsResolver";
 
 export const resolvers = {
   Query: {
