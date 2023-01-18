@@ -13,8 +13,6 @@ interface CreateProductAtributtes {
 
 interface ProductAtributtes extends CreateProductAtributtes {
   id: string;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 export class Product
@@ -27,8 +25,6 @@ export class Product
   price: number;
   ingredients: Json;
   imageUrl: string;
-  createdAt: Date;
-  updatedAt: Date;
 }
 
 Product.init(
@@ -51,12 +47,6 @@ Product.init(
     },
     imageUrl: {
       type: Sequelize.STRING,
-    },
-    createdAt: {
-      type: Sequelize.DATE,
-    },
-    updatedAt: {
-      type: Sequelize.DATE,
     },
   },
   {
