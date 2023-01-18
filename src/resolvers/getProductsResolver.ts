@@ -10,6 +10,7 @@ enum OrderProduct {
 interface QueryParams {
   name: string;
   price: number;
+  restaurantId: string;
   order: OrderProduct;
 }
 
@@ -20,7 +21,12 @@ interface GetProductsParams {
 
 export async function getProductResolver(_, args: GetProductsParams) {
   const { id, query } = args;
-  const { name, order, price } = query;
+  const { name, order, price, restaurantId } = query;
 
-  return await getProductsService({ name, price, orderBy: order.toString() });
+  return await getProductsService({
+    name,
+    price,
+    orderBy: order.toString(),
+    restaurantId,
+  });
 }

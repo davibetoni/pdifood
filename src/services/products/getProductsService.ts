@@ -5,17 +5,24 @@ import { Product } from "../../entities/product";
 interface ProductsParams {
   name: string;
   orderBy: string;
+  restaurantId: string;
   price: number;
 }
 
 export async function getProductsService(params: ProductsParams) {
-  const { name, price, orderBy } = params;
+  const { name, price, orderBy, restaurantId } = params;
   let where = {};
   let order = [];
 
+  if (restaurantId) {
+    where = {
+      restaurantId: restaurantId,
+    };
+  }
+
   if (name) {
     where = {
-      name: { [Op.like]: `%${name}%` },
+      [Op.or]: [{ ...where }, { name: { [Op.like]: `%${name}%` } }],
     };
   }
 

@@ -1,6 +1,5 @@
 import { GraphQLError } from "graphql";
 import { Json } from "sequelize/types/utils";
-import { sequelize } from "../../database";
 import { Product } from "../../entities/product";
 
 interface ProductAttributes {
@@ -12,12 +11,20 @@ interface ProductAttributes {
 }
 
 export async function createProductService(content: ProductAttributes) {
-  const { restaurantId, name, price, ingredients, imageUrl } = content;
+  const { restaurantId, name } = content;
 
-  const newProduct = Product.build(content)
+  const product = await Product.findOne({ where: { name, restaurantId } });
+
+  if (product) {
+    throw new GraphQLError(
+      "Already exist a product with this name on this restaurant."
+    );
+  }
+
+  const newProduct = Product.build(content);
 
   try {
-    newProduct.save()
+    return await newProduct.save();
   } catch (err) {
     throw new GraphQLError(err);
   }

@@ -20,6 +20,7 @@ input ProductInput {
 input ProductQuery {
   name: String
   price: Float
+  restaurantId: String
   order: OrderProduct
 }
 
