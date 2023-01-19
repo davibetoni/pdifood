@@ -1,5 +1,9 @@
 # PDIFOOD
 Projeto realizado para pdi da somos educação
+
+## Auth
+Um [microserviço](https://github.com/davibetoni/auth) foi criado separadamente para autenticar usuários e conseguirem fazer pedidos.
+
 ## SOLID
 
 ### Single responsibility principle - SRP *
