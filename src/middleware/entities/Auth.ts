@@ -16,7 +16,7 @@ export class Auth extends RESTDataSource {
       return await this.post("/auth", { body: { token: this.token } });
     } catch (error) {
       throw new GraphQLError(
-        "Unauthenticated: " + error.extensions.response.body.message,
+        "Unauthenticated: " + error.extensions?.response?.body?.message,
         {
           extensions: {
             code: "UNAUTHENTICATED",
