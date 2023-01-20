@@ -1,6 +1,6 @@
 import { GraphQLError } from "graphql";
 import { Op } from "sequelize";
-import { Product } from "../../entities/product";
+import { Product } from "../../entities/Product";
 
 interface ProductsParams {
   name: string;

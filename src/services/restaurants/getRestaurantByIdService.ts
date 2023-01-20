@@ -1,6 +1,6 @@
 import { GraphQLError } from "graphql";
-import { Product } from "../../entities/product";
-import { Restaurant } from "../../entities/restaurant";
+import { Product } from "../../entities/Product";
+import { Restaurant } from "../../entities/Restaurant";
 
 export async function getRestaurantByIdService(id: string) {
   const restaurant = await Restaurant.findByPk(id, {

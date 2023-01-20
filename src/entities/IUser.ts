@@ -1,3 +1,3 @@
 export interface IUser {
-  user: { name: string; role: string };
+  userAttributes: { id: string; name: string; role: string };
 }

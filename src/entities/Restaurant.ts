@@ -3,7 +3,8 @@ import Sequelize, { Model } from "sequelize";
 import { sequelize } from "../database";
 import { GraphQLError } from "graphql";
 import { cnpjIsValid, cnpjToNumber } from "../helpers/cpf-cnpj";
-import { Product } from "./product";
+import { Product } from "./Product";
+import { UserRestaurant } from "./UserRestaurant";
 
 interface CreateRestaurantAttributes {
   name: string;
@@ -58,6 +59,28 @@ Restaurant.beforeCreate((restaurant) => {
 
 Restaurant.hasMany(Product, {
   as: "products",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+  foreignKey: {
+    allowNull: false,
+    name: "restaurantId",
+    field: "restaurant_id",
+  },
+});
+
+Restaurant.hasMany(UserRestaurant, {
+  as: "userRestaurants",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+  foreignKey: {
+    allowNull: false,
+    name: "restaurantId",
+    field: "restaurant_id",
+  },
+});
+
+UserRestaurant.belongsTo(Restaurant, {
+  as: "restaurant",
   onDelete: "CASCADE",
   onUpdate: "CASCADE",
   foreignKey: {

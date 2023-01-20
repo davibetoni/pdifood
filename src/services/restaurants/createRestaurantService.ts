@@ -1,6 +1,6 @@
 import { GraphQLError } from "graphql";
 import { Op } from "sequelize";
-import { Restaurant } from "../../entities/restaurant";
+import { Restaurant } from "../../entities/Restaurant";
 import { cnpjToNumber } from "../../helpers/cpf-cnpj";
 
 interface RestaurantAttributes {

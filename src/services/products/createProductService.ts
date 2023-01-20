@@ -1,6 +1,8 @@
 import { GraphQLError } from "graphql";
 import { Json } from "sequelize/types/utils";
-import { Product } from "../../entities/product";
+import { IUser } from "../../entities/IUser";
+import { Product } from "../../entities/Product";
+import { getUserRestaurantByIdService } from "../user_restaurants/getUserRestaurantByIdsService";
 
 interface ProductAttributes {
   restaurantId: string;
@@ -10,8 +12,23 @@ interface ProductAttributes {
   imageUrl: string;
 }
 
-export async function createProductService(content: ProductAttributes) {
+export async function createProductService(
+  content: ProductAttributes,
+  manager: IUser
+) {
   const { restaurantId, name } = content;
+  const { userAttributes } = manager;
+
+  const userRestaurant = getUserRestaurantByIdService(
+    restaurantId,
+    userAttributes.id
+  );
+
+  if (userAttributes.role === "manager" && !userRestaurant) {
+    throw new GraphQLError(
+      `${userAttributes.name}, you aren't authorized to create products on this restaurant.`
+    );
+  }
 
   const product = await Product.findOne({ where: { name, restaurantId } });
 

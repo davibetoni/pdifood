@@ -1,7 +1,7 @@
 import { GraphQLError } from "graphql";
 import { Op } from "sequelize";
-import { Product } from "../../entities/product";
-import { Restaurant } from "../../entities/restaurant";
+import { Product } from "../../entities/Product";
+import { Restaurant } from "../../entities/Restaurant";
 
 export async function getRestaurantsService(query: String) {
   let where = {};
