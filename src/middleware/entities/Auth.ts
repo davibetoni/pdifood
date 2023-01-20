@@ -15,12 +15,14 @@ export class Auth extends RESTDataSource {
     try {
       return await this.post("/auth", { body: { token: this.token } });
     } catch (error) {
-      throw new GraphQLError("Unauthenticated", {
-        extensions: {
-          code: "UNAUTHENTICATED",
-          error,
-        },
-      });
+      throw new GraphQLError(
+        "Unauthenticated: " + error.extensions.response.body.message,
+        {
+          extensions: {
+            code: "UNAUTHENTICATED",
+          },
+        }
+      );
     }
   }
 }
