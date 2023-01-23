@@ -14,9 +14,18 @@ input ProductInput {
   ingredients: Json
   imageUrl: String
 }
+
+input OrderInput {
+  id: String!
+  finishedAt: String
+}
 # -------------------------
 
 # ------- Querys ---------
+input OrderQuery {
+  finishedAt: Datetime
+}
+
 input ProductQuery {
   name: String
   price: Float
@@ -52,14 +61,26 @@ type Restaurant {
   createdAt: Datetime
   updatedAt: Datetime
 }
+
+type Order {
+  id: String
+  userId: String
+  finishedBy: String
+  createdAt: Datetime
+  updatedAt: Datetime
+  finishedAt: Datetime
+}
 # -------------------------
 
 type Mutation {
   createRestaurant(content: RestaurantInput!): Restaurant
   createProduct(content: ProductInput!): Product
+  createOrder: Order
+  finishOrder(content: OrderInput!): Order
 }
 
 type Query {
   restaurants(id: String, query: String): [Restaurant]!
   products(id: String, query: ProductQuery): [Product]!
+  orders(id: String, query: OrderQuery): [Order]!
 }
