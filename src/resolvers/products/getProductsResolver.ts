@@ -26,7 +26,7 @@ export async function getProductResolver(_, args: GetProductsParams) {
   return await getProductsService({
     name,
     price,
-    orderBy: order.toString(),
+    orderBy: order?.toString(),
     restaurantId,
   });
 }

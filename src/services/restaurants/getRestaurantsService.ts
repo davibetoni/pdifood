@@ -3,7 +3,9 @@ import { Op } from "sequelize";
 import { Product } from "../../entities/Product";
 import { Restaurant } from "../../entities/Restaurant";
 
-export async function getRestaurantsService(query: String) {
+export async function getRestaurantsService(
+  query: String
+): Promise<Restaurant[]> {
   let where = {};
 
   if (query) {

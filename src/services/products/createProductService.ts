@@ -15,7 +15,7 @@ interface ProductAttributes {
 export async function createProductService(
   content: ProductAttributes,
   manager: IUser
-) {
+): Promise<Product> {
   const { restaurantId, name } = content;
   const { userAttributes } = manager;
 

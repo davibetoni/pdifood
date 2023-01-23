@@ -9,9 +9,11 @@ interface ProductsParams {
   price: number;
 }
 
-export async function getProductsService(params: ProductsParams) {
+export async function getProductsService(
+  params: ProductsParams
+): Promise<Product[]> {
   const { name, price, orderBy, restaurantId } = params;
-  let where = {};
+  let where: any = {};
   let order = [];
 
   if (restaurantId) {
@@ -26,7 +28,7 @@ export async function getProductsService(params: ProductsParams) {
     };
   }
 
-  if (price) {
+  if (price && !orderBy) {
     where = {
       [Op.or]: [{ ...where }, { price: price }],
     };

@@ -8,7 +8,9 @@ interface RestaurantAttributes {
   cnpj: string;
 }
 
-export async function createRestaurantService(content: RestaurantAttributes) {
+export async function createRestaurantService(
+  content: RestaurantAttributes
+): Promise<Restaurant> {
   const { name, cnpj } = content;
 
   const validCnpj = cnpjToNumber(cnpj);

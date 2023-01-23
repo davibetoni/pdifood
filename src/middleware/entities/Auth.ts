@@ -1,4 +1,3 @@
-import "dotenv/config";
 import { RESTDataSource } from "@apollo/datasource-rest";
 import { GraphQLError } from "graphql";
 import { UrlWithStringQuery } from "url";
