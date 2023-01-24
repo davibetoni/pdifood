@@ -15,6 +15,7 @@ export class Order extends Model implements OrderAttributes {
   userId: string;
   finishedBy: string;
   finishedAt: Date;
+  value: number;
 }
 
 Order.init(

@@ -31,6 +31,4 @@ export async function finishOrderService(
     throw new GraphQLError(error);
   }
 }
-function moment() {
-  throw new Error("Function not implemented.");
-}
+
