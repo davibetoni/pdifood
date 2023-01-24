@@ -1,9 +1,11 @@
-import { IUser } from "../entities/IUser";
+import { IUserAttributes } from "../types/IUserAttributes";
 import { Auth } from "./entities/Auth";
 
-export async function authMiddleware(req, res): Promise<IUser> {
+export async function authMiddleware(req, res) {
   const token = req.headers.token;
   const auth = new Auth(token);
 
-  return await auth.authenticatedUser();
+  const { userAttributes } = await auth.authenticatedUser();
+
+  return userAttributes;
 }

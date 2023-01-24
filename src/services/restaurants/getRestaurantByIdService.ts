@@ -1,20 +1,15 @@
 import { GraphQLError } from "graphql";
-import { Product } from "../../entities/Product";
-import { Restaurant } from "../../entities/Restaurant";
+import { RestaurantRepository } from "../../repositories/RestaurantRepository";
 
-export async function getRestaurantByIdService(
-  id: string
-): Promise<Restaurant[]> {
-  try {
-    const restaurant = await Restaurant.findByPk(id, {
-      include: {
-        model: Product,
-        as: "products",
-      },
-    });
+export class GetRestaurantByIdService {
+  constructor(private restaurantRepository: RestaurantRepository) {}
 
-    return [restaurant];
-  } catch (error) {
-    throw new GraphQLError(error);
+  async execute(id: string) {
+    try {
+      const restaurant = await this.restaurantRepository.getRestaurantById(id);
+      return [restaurant];
+    } catch (err) {
+      throw new GraphQLError(err);
+    }
   }
 }

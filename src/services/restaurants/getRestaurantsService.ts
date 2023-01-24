@@ -1,28 +1,14 @@
 import { GraphQLError } from "graphql";
-import { Op } from "sequelize";
-import { Product } from "../../entities/Product";
-import { Restaurant } from "../../entities/Restaurant";
+import { RestaurantRepository } from "../../repositories/RestaurantRepository";
 
-export async function getRestaurantsService(
-  query: String
-): Promise<Restaurant[]> {
-  let where = {};
+export class GetRestaurantsService {
+  constructor(private restaurantRepository: RestaurantRepository) {}
 
-  if (query) {
-    where = {
-      [Op.or]: [
-        { name: { [Op.like]: `%${query}%` } },
-        { cnpj: { [Op.like]: `%${query}%` } },
-      ],
-    };
-  }
-
-  try {
-    return await Restaurant.findAll({
-      where,
-      include: { model: Product, as: "products" },
-    });
-  } catch (err) {
-    throw new GraphQLError(err);
+  async execute(query: string) {
+    try {
+      return await this.restaurantRepository.getRestaurants(query);
+    } catch (err) {
+      throw new GraphQLError(err);
+    }
   }
 }

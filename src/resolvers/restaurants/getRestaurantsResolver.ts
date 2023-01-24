@@ -1,16 +1,20 @@
-import { getRestaurantByIdService } from "../../services/restaurants/getRestaurantByIdService";
-import { getRestaurantsService } from "../../services/restaurants/getRestaurantsService";
+import { IContext } from "../../types/IContext";
 
 interface getRestaurantsArgs {
   id: string;
   query: string;
 }
 
-export async function getRestaurantsResolver(_, args: getRestaurantsArgs) {
+export async function getRestaurantsResolver(
+  _,
+  args: getRestaurantsArgs,
+  context: IContext
+) {
   const { id, query } = args;
+  const { services } = context;
 
   if (id) {
-    return await getRestaurantByIdService(id);
+    return await services.getRestaurantByIdService.execute(id);
   }
-  return await getRestaurantsService(query);
+  return await services.getRestaurantsService.execute(query);
 }
