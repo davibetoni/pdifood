@@ -1,48 +1,47 @@
 import { GraphQLError } from "graphql";
-import { Json } from "sequelize/types/utils";
-import { IUser } from "../../entities/IUser";
-import { Product } from "../../entities/Product";
-import { getUserRestaurantByIdService } from "../user_restaurants/getUserRestaurantByIdsService";
+import {
+  ProductAttributes,
+  ProductRepository,
+} from "../../repositories/ProductRepository";
+import { UserRestaurantRepository } from "../../repositories/UserRestaurantRepository";
+import { IUserAttributes } from "../../types/IUserAttributes";
 
-interface ProductAttributes {
-  restaurantId: string;
-  name: string;
-  price: number;
-  ingredients: Json;
-  imageUrl: string;
-}
+export class CreateProductService {
+  constructor(
+    private productRepository: ProductRepository,
+    private userRestaurantRepository: UserRestaurantRepository
+  ) {}
 
-export async function createProductService(
-  content: ProductAttributes,
-  manager: IUser
-): Promise<Product> {
-  const { restaurantId, name } = content;
-  const { userAttributes } = manager;
+  async execute(content: ProductAttributes, manager: IUserAttributes) {
+    const { restaurantId, name } = content;
+    const { id: userId, role: userRole } = manager;
 
-  const userRestaurant = getUserRestaurantByIdService(
-    restaurantId,
-    userAttributes.id
-  );
-
-  if (userAttributes.role === "manager" && !userRestaurant) {
-    throw new GraphQLError(
-      `${userAttributes.name}, you aren't authorized to create products on this restaurant.`
+    const userRestaurant = this.userRestaurantRepository.getUserRestaurantByIds(
+      restaurantId,
+      userId
     );
-  }
 
-  const product = await Product.findOne({ where: { name, restaurantId } });
+    if (userRole === "manager" && !userRestaurant) {
+      throw new GraphQLError(
+        `${manager.name}, you aren't authorized to create products on this restaurant.`
+      );
+    }
 
-  if (product) {
-    throw new GraphQLError(
-      "Already exist a product with this name on this restaurant."
+    const product = await this.productRepository.getProductByNameByRestaurant(
+      name,
+      restaurantId
     );
-  }
 
-  const newProduct = Product.build(content);
+    if (product) {
+      throw new GraphQLError(
+        "Already exist a product with this name on this restaurant."
+      );
+    }
 
-  try {
-    return await newProduct.save();
-  } catch (err) {
-    throw new GraphQLError(err);
+    try {
+      return await this.productRepository.createProduct(content);
+    } catch (error) {
+      throw new GraphQLError(error);
+    }
   }
 }

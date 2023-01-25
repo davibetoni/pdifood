@@ -1,17 +1,17 @@
 import { GraphQLError } from "graphql";
-import { UserRestaurant } from "../../entities/UserRestaurant";
+import { UserRestaurantRepository } from "../../repositories/UserRestaurantRepository";
 
-export async function getUserRestaurantByIdService(
-  restaurantId: string,
-  userId: string
-): Promise<UserRestaurant> {
-  try {
-    const userRestaurant = UserRestaurant.findOne({
-      where: { restaurantId, userId },
-    });
+export class GetUserRestaurantByIdService {
+  constructor(private userRestaurantRepository: UserRestaurantRepository) {}
 
-    return await userRestaurant;
-  } catch (error) {
-    throw new GraphQLError(error);
+  async execute(restaurantId: string, userId: string) {
+    try {
+      return await this.userRestaurantRepository.getUserRestaurantByIds(
+        restaurantId,
+        userId
+      );
+    } catch (error) {
+      throw new GraphQLError(error);
+    }
   }
 }

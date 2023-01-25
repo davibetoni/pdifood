@@ -27,7 +27,7 @@ UserRestaurant.init(
   },
   {
     sequelize: sequelize,
-    timestamps: true,
+    timestamps: false,
     underscored: true,
     tableName: "user_restaurants",
   }

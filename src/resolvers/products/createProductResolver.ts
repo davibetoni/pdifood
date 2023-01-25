@@ -1,7 +1,6 @@
 import { GraphQLError } from "graphql";
 import { Json } from "sequelize/types/utils";
-import { IUser } from "../../entities/IUser";
-import { createProductService } from "../../services/products/createProductService";
+import { IContext } from "../../types/IContext";
 
 interface ProductContent {
   content: {
@@ -16,10 +15,10 @@ interface ProductContent {
 export async function createProductResolver(
   _,
   args: ProductContent,
-  context: IUser
+  context: IContext
 ) {
   const { content } = args;
-  const { userAttributes } = context;
+  const { services, userAttributes } = context;
 
   if (userAttributes.role === "customer") {
     throw new GraphQLError(
@@ -27,5 +26,5 @@ export async function createProductResolver(
     );
   }
 
-  return await createProductService(content, { userAttributes });
+  return await services.createProductService.execute(content, userAttributes);
 }

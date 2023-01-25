@@ -1,6 +1,6 @@
 import Sequelize, { Model } from "sequelize";
 import { Json } from "sequelize/types/utils";
-import { uuid } from "uuidv4";
+import { randomUUID as uuid } from "node:crypto";
 import { sequelize } from "../database";
 import { OrderProduct } from "./OrderProduct";
 
