@@ -1,8 +1,9 @@
-import { IUser } from "../../entities/IUser";
-import { createOrderService } from "../../services/orders/createOrderService";
+import { IContext } from "../../types/IContext";
 
-export async function createOrderResolver(_, _args, context: IUser) {
-  const { userAttributes } = context;
+export async function createOrderResolver(_, _args, context: IContext) {
+  const { userAttributes, services } = context;
 
-  return await createOrderService({ userId: userAttributes.id });
+  return await services.createOrderService.execute({
+    userId: userAttributes.id,
+  });
 }

@@ -1,6 +1,4 @@
-import { IUser } from "../../entities/IUser";
-import { getOrderByIdService } from "../../services/orders/getOrderById";
-import { getOrdersService } from "../../services/orders/getOrdersService";
+import { IContext } from "../../types/IContext";
 
 interface QueryParams {
   finishedAt: Date;
@@ -14,12 +12,13 @@ interface getOrdersArgs {
 export async function getOrdersResolver(
   _,
   args: getOrdersArgs,
-  context: IUser
+  context: IContext
 ) {
   const { id, query } = args;
+  const { services } = context;
 
   if (id) {
-    return await getOrderByIdService(id);
+    return await services.getOrderByIdService.execute(id);
   }
-  return await getOrdersService(query);
+  return await services.getOrdersService.execute(query);
 }

@@ -1,5 +1,5 @@
 import { GraphQLError } from "graphql";
-import { Order } from "../../entities/Order";
+import { OrderRepository } from "../../repositories/OrderRepository";
 
 interface FinishOrderAttributes {
   id: string;
@@ -7,28 +7,26 @@ interface FinishOrderAttributes {
   finishedAt: Date;
 }
 
-export async function finishOrderService(
-  content: FinishOrderAttributes
-): Promise<Order> {
-  const { id, finishedAt, finishedBy } = content;
+export class FinishOrderService {
+  constructor(private orderRepository: OrderRepository) {}
 
-  const order = await Order.findByPk(id);
+  async execute(content: FinishOrderAttributes) {
+    const { id, finishedAt, finishedBy } = content;
 
-  if (!order) {
-    throw new GraphQLError("OrderId is not valid.");
-  }
+    const order = await this.orderRepository.getOrderById(id);
 
-  if (order.finishedAt) {
-    throw new GraphQLError("Order is already finished.");
-  }
+    if (!order) {
+      throw new GraphQLError("OrderId is not valid.");
+    }
 
-  try {
-    return await order.update({
-      finishedAt: finishedAt || Date.now(),
-      finishedBy,
-    });
-  } catch (error) {
-    throw new GraphQLError(error);
+    if (order.finishedAt) {
+      throw new GraphQLError("Order is already finished.");
+    }
+
+    try {
+      return await this.orderRepository.finishOrder(order, finishedBy);
+    } catch (error) {
+      throw new GraphQLError(error);
+    }
   }
 }
-

@@ -1,3 +1,7 @@
+import { CreateOrderService } from "../services/orders/createOrderService";
+import { FinishOrderService } from "../services/orders/finishOrderService";
+import { GetOrderByIdService } from "../services/orders/getOrderById";
+import { GetOrdersService } from "../services/orders/getOrdersService";
 import { CreateProductService } from "../services/products/createProductService";
 import { GetProductsService } from "../services/products/getProductsService";
 import { CreateRestaurantService } from "../services/restaurants/createRestaurantService";
@@ -12,4 +16,8 @@ export interface IServices {
   getProductsService: GetProductsService;
   createProductService: CreateProductService;
   getUserRestaurantByIdsService: GetUserRestaurantByIdService;
+  createOrderService: CreateOrderService;
+  finishOrderService: FinishOrderService;
+  getOrderByIdService: GetOrderByIdService;
+  getOrdersService: GetOrdersService;
 }

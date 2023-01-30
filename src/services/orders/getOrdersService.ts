@@ -1,25 +1,17 @@
 import { GraphQLError } from "graphql";
-import { Order } from "../../entities/Order";
+import {
+  OrderParams,
+  OrderRepository,
+} from "../../repositories/OrderRepository";
 
-interface OrderParams {
-  finishedAt: Date;
-}
+export class GetOrdersService {
+  constructor(private orderRepository: OrderRepository) {}
 
-export async function getOrdersService(params: OrderParams): Promise<Order[]> {
-  let where = {};
-
-  if (params) {
-    const { finishedAt } = params;
-    if (finishedAt) {
-      where = {
-        finishedAt: finishedAt,
-      };
+  async execute(params: OrderParams) {
+    try {
+      return await this.orderRepository.getOrders(params);
+    } catch (error) {
+      throw new GraphQLError(error);
     }
-  }
-
-  try {
-    return await Order.findAll({ where });
-  } catch (error) {
-    throw new GraphQLError(error);
   }
 }

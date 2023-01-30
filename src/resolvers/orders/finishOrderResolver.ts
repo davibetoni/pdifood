@@ -1,6 +1,5 @@
 import { GraphQLError } from "graphql";
-import { IUser } from "../../entities/IUser";
-import { finishOrderService } from "../../services/orders/finishOrderService";
+import { IContext } from "../../types/IContext";
 
 interface FinishOrderContent {
   content: { id: string; finishedAt: Date };
@@ -9,16 +8,16 @@ interface FinishOrderContent {
 export async function finishOrderResolver(
   _,
   args: FinishOrderContent,
-  context: IUser
+  context: IContext
 ) {
-  const { userAttributes } = context;
+  const { userAttributes, services } = context;
   const { content } = args;
 
   if (userAttributes.role === "customer") {
     throw new GraphQLError(`${userAttributes.name} you can't finish a order.`);
   }
 
-  return await finishOrderService({
+  return await services.finishOrderService.execute({
     ...content,
     finishedBy: userAttributes.id,
   });

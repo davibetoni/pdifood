@@ -1,10 +1,14 @@
 import { GraphQLError } from "graphql";
-import { Order } from "../../entities/Order";
+import { OrderRepository } from "../../repositories/OrderRepository";
 
-export async function getOrderByIdService(id: string): Promise<Order> {
-  try {
-    return await Order.findByPk(id);
-  } catch (error) {
-    throw new GraphQLError(error);
+export class GetOrderByIdService {
+  constructor(private orderRepository: OrderRepository) {}
+
+  async execute(id: string) {
+    try {
+      return await this.orderRepository.getOrderById(id);
+    } catch (error) {
+      throw new GraphQLError(error);
+    }
   }
 }

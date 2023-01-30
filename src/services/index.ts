@@ -1,6 +1,11 @@
+import { OrderSequelize } from "../repositories/implementation/OrderSequelize";
 import { ProductSequelize } from "../repositories/implementation/ProductSequelize";
 import { RestaurantSequelize } from "../repositories/implementation/RestaurantSequelize";
 import { UserRestaurantSequelize } from "../repositories/implementation/UserRestaurantSequelize";
+import { CreateOrderService } from "./orders/createOrderService";
+import { FinishOrderService } from "./orders/finishOrderService";
+import { GetOrderByIdService } from "./orders/getOrderById";
+import { GetOrdersService } from "./orders/getOrdersService";
 import { CreateProductService } from "./products/createProductService";
 import { GetProductsService } from "./products/getProductsService";
 import { CreateRestaurantService } from "./restaurants/createRestaurantService";
@@ -15,6 +20,7 @@ export function createServices() {
   const restaurantRepository = new RestaurantSequelize();
   const productRepository = new ProductSequelize();
   const userRestaurantRepository = new UserRestaurantSequelize();
+  const orderRepository = new OrderSequelize();
 
   // ---
   // . Services -----------------------
@@ -36,6 +42,11 @@ export function createServices() {
   const getUserRestaurantByIdsService = new GetUserRestaurantByIdService(
     userRestaurantRepository
   );
+  // .. Orders -----------------------
+  const createOrderService = new CreateOrderService(orderRepository);
+  const finishOrderService = new FinishOrderService(orderRepository);
+  const getOrderByIdService = new GetOrderByIdService(orderRepository);
+  const getOrdersService = new GetOrdersService(orderRepository);
 
   return {
     getRestaurantsService,
@@ -44,5 +55,9 @@ export function createServices() {
     getProductsService,
     createProductService,
     getUserRestaurantByIdsService,
+    createOrderService,
+    finishOrderService,
+    getOrderByIdService,
+    getOrdersService,
   };
 }

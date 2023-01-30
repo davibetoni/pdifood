@@ -1,19 +1,17 @@
 import { GraphQLError } from "graphql";
-import { Order } from "../../entities/Order";
+import {
+  OrderContent,
+  OrderRepository,
+} from "../../repositories/OrderRepository";
 
-interface OrderContent {
-  userId: string;
-}
+export class CreateOrderService {
+  constructor(private orderRepository: OrderRepository) {}
 
-export async function createOrderService(
-  content: OrderContent
-): Promise<Order> {
-  const { userId } = content;
-
-  try {
-    const order = Order.build({ userId });
-    return await order.save();
-  } catch (error) {
-    throw new GraphQLError(error);
+  async execute(content: OrderContent) {
+    try {
+      return await this.orderRepository.createOrder(content);
+    } catch (error) {
+      throw new GraphQLError(error);
+    }
   }
 }
