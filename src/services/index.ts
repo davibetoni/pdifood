@@ -57,8 +57,8 @@ export function createServices() {
   const finishOrderService = new FinishOrderService(orderRepository);
   const getOrderByIdService = new GetOrderByIdService(orderRepository);
   const getOrdersService = new GetOrdersService(orderRepository);
-  const quantityOrderService = new QuantityOrderService(orderRepository);
-  const priceOrderService = new PriceOrderService(orderRepository);
+  const quantityOrderService = new QuantityOrderService();
+  const priceOrderService = new PriceOrderService();
 
   // .. OrderProducts ---------------
   const getOrderProductsService = new GetOrderProductsService(

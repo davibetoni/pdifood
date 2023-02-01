@@ -1,10 +1,6 @@
 import { GraphQLError } from "graphql";
 import { OrderProduct } from "../../entities/OrderProduct";
-import { OrderRepository } from "../../repositories/OrderRepository";
-
 export class PriceOrderService {
-  constructor(private orderRepository: OrderRepository) {}
-
   async execute(orderProducts: OrderProduct[]) {
     try {
       let totalPrice = 0;
