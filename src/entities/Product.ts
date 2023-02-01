@@ -61,26 +61,3 @@ Product.init(
 Product.beforeCreate((product) => {
   product.id = uuid();
 });
-
-
-Product.hasMany(OrderProduct, {
-  as: "orderProducts",
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
-  foreignKey: {
-    allowNull: false,
-    name: "productId",
-    field: "product_id",
-  },
-});
-
-OrderProduct.belongsTo(Product, {
-  as: "product",
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
-  foreignKey: {
-    allowNull: false,
-    name: "productId",
-    field: "product_id",
-  },
-});

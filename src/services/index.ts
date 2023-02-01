@@ -1,3 +1,4 @@
+import { OrderProductSequelize } from "../repositories/implementation/OrderProductSequelize";
 import { OrderSequelize } from "../repositories/implementation/OrderSequelize";
 import { ProductSequelize } from "../repositories/implementation/ProductSequelize";
 import { RestaurantSequelize } from "../repositories/implementation/RestaurantSequelize";
@@ -6,6 +7,11 @@ import { CreateOrderService } from "./orders/createOrderService";
 import { FinishOrderService } from "./orders/finishOrderService";
 import { GetOrderByIdService } from "./orders/getOrderById";
 import { GetOrdersService } from "./orders/getOrdersService";
+import { PriceOrderService } from "./orders/priceOrderService";
+import { QuantityOrderService } from "./orders/quantityOrderService";
+import { CreateOrderProductService } from "./order_products/createOrderProductService";
+import { GetOrderProductByIdsService } from "./order_products/getOrderProductByIdsService";
+import { GetOrderProductsService } from "./order_products/getOrderProductsService";
 import { CreateProductService } from "./products/createProductService";
 import { GetProductsService } from "./products/getProductsService";
 import { CreateRestaurantService } from "./restaurants/createRestaurantService";
@@ -21,6 +27,7 @@ export function createServices() {
   const productRepository = new ProductSequelize();
   const userRestaurantRepository = new UserRestaurantSequelize();
   const orderRepository = new OrderSequelize();
+  const orderProductRepository = new OrderProductSequelize();
 
   // ---
   // . Services -----------------------
@@ -32,21 +39,37 @@ export function createServices() {
   const createRestaurantService = new CreateRestaurantService(
     restaurantRepository
   );
+
   // .. Products ---------------------
   const getProductsService = new GetProductsService(productRepository);
   const createProductService = new CreateProductService(
     productRepository,
     userRestaurantRepository
   );
+
   // .. UserRestaurant ---------------
   const getUserRestaurantByIdsService = new GetUserRestaurantByIdService(
     userRestaurantRepository
   );
+
   // .. Orders -----------------------
   const createOrderService = new CreateOrderService(orderRepository);
   const finishOrderService = new FinishOrderService(orderRepository);
   const getOrderByIdService = new GetOrderByIdService(orderRepository);
   const getOrdersService = new GetOrdersService(orderRepository);
+  const quantityOrderService = new QuantityOrderService(orderRepository);
+  const priceOrderService = new PriceOrderService(orderRepository);
+
+  // .. OrderProducts ---------------
+  const getOrderProductsService = new GetOrderProductsService(
+    orderProductRepository
+  );
+  const createOrderProductService = new CreateOrderProductService(
+    orderProductRepository
+  );
+  const getOrderProductByIdsService = new GetOrderProductByIdsService(
+    orderProductRepository
+  );
 
   return {
     getRestaurantsService,
@@ -59,5 +82,10 @@ export function createServices() {
     finishOrderService,
     getOrderByIdService,
     getOrdersService,
+    quantityOrderService,
+    priceOrderService,
+    getOrderProductsService,
+    getOrderProductByIdsService,
+    createOrderProductService,
   };
 }

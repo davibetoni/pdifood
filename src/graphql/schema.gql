@@ -19,6 +19,13 @@ input OrderInput {
   id: String!
   finishedAt: String
 }
+
+input OrderProductInput {
+  orderId: String!
+  productId: String!
+  quantity: Float!
+  newIngredients: Json
+}
 # -------------------------
 
 # ------- Querys ---------
@@ -30,10 +37,10 @@ input ProductQuery {
   name: String
   price: Float
   restaurantId: String
-  order: OrderProduct
+  order: OrderingProduct
 }
 
-enum OrderProduct {
+enum OrderingProduct {
   moreThan
   lessThan
   asc
@@ -62,13 +69,24 @@ type Restaurant {
   updatedAt: Datetime
 }
 
+type OrderProduct {
+  orderId: String
+  productId: String
+  quantity: Int
+  price: Float
+  newIngredients: Json
+}
+
 type Order {
   id: String
   userId: String
   finishedBy: String
+  finishedAt: Datetime
+  totalQuantity: Int
+  totalPrice: Float
+  orderProducts: [OrderProduct]
   createdAt: Datetime
   updatedAt: Datetime
-  finishedAt: Datetime
 }
 # -------------------------
 
@@ -77,10 +95,12 @@ type Mutation {
   createProduct(content: ProductInput!): Product
   createOrder: Order
   finishOrder(content: OrderInput!): Order
+  createOrderProduct(content: OrderProductInput!): OrderProduct
 }
 
 type Query {
   restaurants(id: String, query: String): [Restaurant]!
   products(id: String, query: ProductQuery): [Product]!
   orders(id: String, query: OrderQuery): [Order]!
+  orderProducts(orderId: String, productId: String): [OrderProduct]!
 }

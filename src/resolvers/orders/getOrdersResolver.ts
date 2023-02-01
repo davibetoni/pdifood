@@ -15,10 +15,10 @@ export async function getOrdersResolver(
   context: IContext
 ) {
   const { id, query } = args;
-  const { services } = context;
+  const { services, userAttributes } = context;
 
   if (id) {
-    return await services.getOrderByIdService.execute(id);
+    return [await services.getOrderByIdService.execute(id)];
   }
   return await services.getOrdersService.execute(query);
 }

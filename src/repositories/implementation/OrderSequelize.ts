@@ -1,4 +1,5 @@
 import { Order } from "../../entities/Order";
+import { OrderProduct } from "../../entities/OrderProduct";
 import { OrderContent, OrderParams, OrderRepository } from "../OrderRepository";
 
 export class OrderSequelize implements OrderRepository {
@@ -10,7 +11,9 @@ export class OrderSequelize implements OrderRepository {
     return await order.update({ finishedAt: Date.now(), finishedBy });
   }
   async getOrderById(id: string): Promise<Order> {
-    return await Order.findByPk(id);
+    return await Order.findByPk(id, {
+      include: { model: OrderProduct, as: "orderProducts" },
+    });
   }
   async getOrders(query: OrderParams): Promise<Order[]> {
     let where = {};
@@ -24,6 +27,9 @@ export class OrderSequelize implements OrderRepository {
       }
     }
 
-    return await Order.findAll({ where });
+    return await Order.findAll({
+      where,
+      include: { model: OrderProduct, as: "orderProducts" },
+    });
   }
 }

@@ -1,12 +1,14 @@
 import Sequelize, { Model } from "sequelize";
 import { Json } from "sequelize/types/utils";
 import { sequelize } from "../database";
+import { Product } from "./Product";
 
 interface CreateOrderProductAttributes {
   orderId: string;
   productId: string;
   quantity: number;
   newIngredients: Json;
+  price: number;
 }
 
 export class OrderProduct
@@ -17,6 +19,7 @@ export class OrderProduct
   productId: string;
   quantity: number;
   newIngredients: Json;
+  price: number;
 }
 
 OrderProduct.init(
@@ -32,6 +35,9 @@ OrderProduct.init(
     quantity: {
       type: Sequelize.NUMBER,
     },
+    price: {
+      type: Sequelize.DECIMAL,
+    },
     newIngredients: {
       type: Sequelize.JSON,
     },
@@ -43,3 +49,31 @@ OrderProduct.init(
     tableName: "order_products",
   }
 );
+
+OrderProduct.beforeCreate( async (orderProduct) => {
+  const product = await Product.findByPk(orderProduct.dataValues.productId);
+  orderProduct.price =
+    product.dataValues.price * orderProduct.dataValues.quantity;
+});
+
+Product.hasMany(OrderProduct, {
+  as: "orderProducts",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+  foreignKey: {
+    allowNull: false,
+    name: "productId",
+    field: "product_id",
+  },
+});
+
+OrderProduct.belongsTo(Product, {
+  as: "product",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+  foreignKey: {
+    allowNull: false,
+    name: "productId",
+    field: "product_id",
+  },
+});

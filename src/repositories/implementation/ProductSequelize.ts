@@ -7,6 +7,10 @@ import {
 } from "../ProductRepository";
 
 export class ProductSequelize implements ProductRepository {
+  async getProductById(id: string): Promise<Product> {
+    return await Product.findByPk(id);
+  }
+
   async getProducts(query: ProductsParams): Promise<Product[]> {
     const { name, price, orderBy, restaurantId } = query;
     let where = {};

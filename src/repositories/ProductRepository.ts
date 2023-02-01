@@ -18,6 +18,10 @@ export interface ProductAttributes {
 
 export interface ProductRepository {
   getProducts(query: ProductsParams): Promise<Product[]>;
-  getProductByNameByRestaurant(name: string, restaurantId: string): Promise<Product>;
+  getProductById(id: string): Promise<Product>;
+  getProductByNameByRestaurant(
+    name: string,
+    restaurantId: string
+  ): Promise<Product>;
   createProduct(params: ProductAttributes): Promise<Product>;
 }
