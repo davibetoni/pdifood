@@ -8,11 +8,8 @@ export class QuantityOrderService {
     private orderRepository: OrderRepository
   ) {}
 
-  async execute(orderId: string) {
+  async execute(orderProducts: OrderProduct[]) {
     try {
-      const order = await this.orderRepository.getOrderById(orderId);
-      const orderProducts: [OrderProduct] = order.dataValues.orderProducts;
-
       let totalQuantity = 0;
 
       orderProducts.map((orderProduct) => {

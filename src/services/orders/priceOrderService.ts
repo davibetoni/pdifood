@@ -5,11 +5,8 @@ import { OrderRepository } from "../../repositories/OrderRepository";
 export class PriceOrderService {
   constructor(private orderRepository: OrderRepository) {}
 
-  async execute(orderId: string) {
+  async execute(orderProducts: OrderProduct[]) {
     try {
-      const order = await this.orderRepository.getOrderById(orderId);
-      const orderProducts: [OrderProduct] = order.dataValues.orderProducts;
-
       let totalPrice = 0;
 
       orderProducts.map((orderProduct) => {

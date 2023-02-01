@@ -1,18 +1,13 @@
+import { Order } from "../../entities/Order";
 import { IContext } from "../../types/IContext";
 
-interface OrderParent {
-  dataValues: {
-    id: string;
-  };
-}
-
 export async function priceOrderResolver(
-  parent: OrderParent,
+  parent: Order,
   _,
   context: IContext
 ) {
-  const { id: orderId } = parent.dataValues;
+  const { orderProducts } = parent;
   const { services } = context;
 
-  return await services.priceOrderService.execute(orderId);
+  return await services.priceOrderService.execute(orderProducts);
 }

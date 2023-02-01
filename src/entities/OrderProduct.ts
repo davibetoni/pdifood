@@ -50,8 +50,8 @@ OrderProduct.init(
   }
 );
 
-OrderProduct.beforeCreate( async (orderProduct) => {
-  const product = await Product.findByPk(orderProduct.dataValues.productId);
+OrderProduct.beforeSave( async (orderProduct) => {
+  const product = await Product.findByPk(orderProduct.productId);
   orderProduct.price =
     product.price * orderProduct.quantity;
 });
