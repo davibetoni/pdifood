@@ -53,7 +53,7 @@ OrderProduct.init(
 OrderProduct.beforeCreate( async (orderProduct) => {
   const product = await Product.findByPk(orderProduct.dataValues.productId);
   orderProduct.price =
-    product.dataValues.price * orderProduct.dataValues.quantity;
+    product.price * orderProduct.quantity;
 });
 
 Product.hasMany(OrderProduct, {

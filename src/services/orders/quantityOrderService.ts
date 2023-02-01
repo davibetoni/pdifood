@@ -16,7 +16,7 @@ export class QuantityOrderService {
       let totalQuantity = 0;
 
       orderProducts.map((orderProduct) => {
-        totalQuantity += orderProduct.dataValues.quantity;
+        totalQuantity += orderProduct.quantity;
       });
 
       return totalQuantity;

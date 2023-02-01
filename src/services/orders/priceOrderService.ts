@@ -13,7 +13,7 @@ export class PriceOrderService {
       let totalPrice = 0;
 
       orderProducts.map((orderProduct) => {
-        totalPrice += +orderProduct.dataValues.price;
+        totalPrice += +orderProduct.price;
       });
 
       return totalPrice.toFixed(2);
