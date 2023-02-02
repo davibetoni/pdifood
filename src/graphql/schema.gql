@@ -26,6 +26,13 @@ input OrderProductInput {
   quantity: Float!
   newIngredients: Json
 }
+
+input CouponInput {
+  code: String!
+  value: Float!
+  percent: Boolean
+  validDate: Datetime
+}
 # -------------------------
 
 # ------- Querys ---------
@@ -38,6 +45,13 @@ input ProductQuery {
   price: Float
   restaurantId: String
   order: OrderingProduct
+}
+
+input CouponQuery {
+  code: String
+  value: Float
+  percent: Boolean
+  validDate: Datetime
 }
 
 enum OrderingProduct {
@@ -93,6 +107,14 @@ type Order {
   createdAt: Datetime
   updatedAt: Datetime
 }
+
+type Coupon {
+  id: String
+  code: String
+  value: Float
+  percent: Boolean
+  validDate: Datetime
+}
 # -------------------------
 
 type Mutation {
@@ -101,6 +123,7 @@ type Mutation {
   createOrder: Order
   finishOrder(content: OrderInput!): FinishOrder
   createOrderProduct(content: OrderProductInput!): OrderProduct
+  createCoupon(content: CouponInput): Coupon
 }
 
 type Query {
@@ -108,4 +131,5 @@ type Query {
   products(id: String, query: ProductQuery): [Product]!
   orders(id: String, query: OrderQuery): [Order]!
   orderProducts(orderId: String, productId: String): [OrderProduct]!
+  coupons(id: String, query: CouponQuery): [Coupon]!
 }

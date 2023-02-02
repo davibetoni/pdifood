@@ -9,6 +9,8 @@ import { getOrderProductsResolver } from "./order_products/getOrderProductsResol
 import { createOrderProductResolver } from "./order_products/createOrderProductResolver";
 import { quantityOrderResolver } from "./orders/quantityOrderResolver";
 import { priceOrderResolver } from "./orders/priceOrderResolver";
+import { createCouponResolver } from "./coupons/createCouponResolver";
+import { getCouponsResolver } from "./coupons/getCouponsResolver";
 
 export const resolvers = {
   Query: {
@@ -16,6 +18,7 @@ export const resolvers = {
     products: getProductResolver,
     orders: getOrdersResolver,
     orderProducts: getOrderProductsResolver,
+    coupons: getCouponsResolver,
   },
   Mutation: {
     createRestaurant: createRestaurantResolver,
@@ -23,6 +26,7 @@ export const resolvers = {
     createOrder: createOrderResolver,
     finishOrder: finishOrderResolver,
     createOrderProduct: createOrderProductResolver,
+    createCoupon: createCouponResolver,
   },
   Order: {
     totalQuantity: quantityOrderResolver,

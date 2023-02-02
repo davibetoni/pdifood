@@ -1,8 +1,12 @@
+import { CouponSequelize } from "../repositories/implementation/CouponSequelize";
 import { OrderProductSequelize } from "../repositories/implementation/OrderProductSequelize";
 import { OrderSequelize } from "../repositories/implementation/OrderSequelize";
 import { ProductSequelize } from "../repositories/implementation/ProductSequelize";
 import { RestaurantSequelize } from "../repositories/implementation/RestaurantSequelize";
 import { UserRestaurantSequelize } from "../repositories/implementation/UserRestaurantSequelize";
+import { CreateCouponService } from "./coupons/createCouponService";
+import { GetCouponByIdService } from "./coupons/getCouponByIdService";
+import { GetCouponsService } from "./coupons/getCouponsService";
 import { CreateOrderService } from "./orders/createOrderService";
 import { FinishOrderService } from "./orders/finishOrderService";
 import { GetOrderByIdService } from "./orders/getOrderById";
@@ -28,6 +32,7 @@ export function createServices() {
   const userRestaurantRepository = new UserRestaurantSequelize();
   const orderRepository = new OrderSequelize();
   const orderProductRepository = new OrderProductSequelize();
+  const couponRepository = new CouponSequelize();
 
   // ---
   // . Services -----------------------
@@ -71,6 +76,11 @@ export function createServices() {
     orderProductRepository
   );
 
+  // .. Coupons --------------------
+  const createCouponService = new CreateCouponService(couponRepository);
+  const getCouponsService = new GetCouponsService(couponRepository);
+  const getCouponByIdService = new GetCouponByIdService(couponRepository);
+
   return {
     getRestaurantsService,
     getRestaurantByIdService,
@@ -87,5 +97,8 @@ export function createServices() {
     getOrderProductsService,
     getOrderProductByIdsService,
     createOrderProductService,
+    createCouponService,
+    getCouponsService,
+    getCouponByIdService,
   };
 }

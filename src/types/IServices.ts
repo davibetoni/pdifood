@@ -1,3 +1,6 @@
+import { CreateCouponService } from "../services/coupons/createCouponService";
+import { GetCouponByIdService } from "../services/coupons/getCouponByIdService";
+import { GetCouponsService } from "../services/coupons/getCouponsService";
 import { CreateOrderService } from "../services/orders/createOrderService";
 import { FinishOrderService } from "../services/orders/finishOrderService";
 import { GetOrderByIdService } from "../services/orders/getOrderById";
@@ -30,4 +33,7 @@ export interface IServices {
   getOrderProductsService: GetOrderProductsService;
   getOrderProductByIdsService: GetOrderProductByIdsService;
   createOrderProductService: CreateOrderProductService;
+  createCouponService: CreateCouponService;
+  getCouponsService: GetCouponsService;
+  getCouponByIdService: GetCouponByIdService;
 }
