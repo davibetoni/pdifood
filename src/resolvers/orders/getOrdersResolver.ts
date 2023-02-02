@@ -1,3 +1,5 @@
+import { GetOrderByIdService } from "../../services/orders/getOrderById";
+import { GetOrdersService } from "../../services/orders/getOrdersService";
 import { IContext } from "../../types/IContext";
 
 interface QueryParams {
@@ -15,7 +17,11 @@ export async function getOrdersResolver(
   context: IContext
 ) {
   const { id, query } = args;
-  const { services, userAttributes } = context;
+  const { repositories, userAttributes } = context;
+  const getOrderByIdService = new GetOrderByIdService(
+    repositories.orderRepository
+  );
+  const getOrdersService = new GetOrdersService(repositories.orderRepository);
 
   let userId: string;
   if (userAttributes.role !== "admin") {
@@ -23,7 +29,7 @@ export async function getOrdersResolver(
   }
 
   if (id) {
-    return [await services.getOrderByIdService.execute(id, userId)];
+    return [await getOrderByIdService.execute(id, userId)];
   }
-  return await services.getOrdersService.execute(query, userId);
+  return await getOrdersService.execute(query, userId);
 }

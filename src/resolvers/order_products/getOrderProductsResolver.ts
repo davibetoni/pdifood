@@ -1,3 +1,5 @@
+import { GetOrderProductByIdsService } from "../../services/order_products/getOrderProductByIdsService";
+import { GetOrderProductsService } from "../../services/order_products/getOrderProductsService";
 import { IContext } from "../../types/IContext";
 
 interface OrderProductParams {
@@ -10,15 +12,21 @@ export async function getOrderProductsResolver(
   args: OrderProductParams,
   context: IContext
 ) {
-  const { services } = context;
+  const { orderProductRepository } = context.repositories;
   const { orderId, productId } = args;
+  const getOrderProductByIdsService = new GetOrderProductByIdsService(
+    orderProductRepository
+  );
+  const getOrderProductsService = new GetOrderProductsService(
+    orderProductRepository
+  );
 
   if (orderId && productId) {
-    return await services.getOrderProductByIdsService.execute({
+    return await getOrderProductByIdsService.execute({
       orderId,
       productId,
     });
   }
 
-  return await services.getOrderProductsService.execute(args);
+  return await getOrderProductsService.execute(args);
 }

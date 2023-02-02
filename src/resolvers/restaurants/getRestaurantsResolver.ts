@@ -1,3 +1,5 @@
+import { GetRestaurantByIdService } from "../../services/restaurants/getRestaurantByIdService";
+import { GetRestaurantsService } from "../../services/restaurants/getRestaurantsService";
 import { IContext } from "../../types/IContext";
 
 interface getRestaurantsArgs {
@@ -11,10 +13,14 @@ export async function getRestaurantsResolver(
   context: IContext
 ) {
   const { id, query } = args;
-  const { services } = context;
+  const { restaurantRepository } = context.repositories;
+  const getRestaurantByIdService = new GetRestaurantByIdService(
+    restaurantRepository
+  );
+  const getRestaurantsService = new GetRestaurantsService(restaurantRepository);
 
   if (id) {
-    return await services.getRestaurantByIdService.execute(id);
+    return await getRestaurantByIdService.execute(id);
   }
-  return await services.getRestaurantsService.execute(query);
+  return await getRestaurantsService.execute(query);
 }

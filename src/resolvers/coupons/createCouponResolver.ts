@@ -1,4 +1,5 @@
 import { GraphQLError } from "graphql";
+import { CreateCouponService } from "../../services/coupons/createCouponService";
 import { IContext } from "../../types/IContext";
 
 interface CouponInput {
@@ -16,11 +17,14 @@ export async function createCouponResolver(
   context: IContext
 ) {
   const { content } = args;
-  const { services, userAttributes } = context;
+  const { repositories, userAttributes } = context;
+  const createCouponService = new CreateCouponService(
+    repositories.couponRepository
+  );
 
   if (userAttributes.role !== "admin") {
     throw new GraphQLError("You can't create a Coupon.");
   }
 
-  return await services.createCouponService.execute(content);
+  return await createCouponService.execute(content);
 }

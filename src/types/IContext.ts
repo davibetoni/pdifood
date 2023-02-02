@@ -1,8 +1,7 @@
-import { GetRestaurantsService } from "../services/restaurants/getRestaurantsService";
-import { IServices } from "./IServices";
+import { IRepositories } from "./IRepositories";
 import { IUserAttributes } from "./IUserAttributes";
 
 export interface IContext {
   userAttributes: IUserAttributes;
-  services: IServices;
+  repositories: IRepositories;
 }

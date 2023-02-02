@@ -1,4 +1,5 @@
 import { Json } from "sequelize/types/utils";
+import { CreateOrderProductService } from "../../services/order_products/createOrderProductService";
 import { IContext } from "../../types/IContext";
 
 interface OrderProductInput {
@@ -16,7 +17,10 @@ export async function createOrderProductResolver(
   context: IContext
 ) {
   const { content } = args;
-  const { services } = context;
+  const { orderProductRepository } = context.repositories;
+  const createOrderProductService = new CreateOrderProductService(
+    orderProductRepository
+  );
 
-  return await services.createOrderProductService.execute(content);
+  return await createOrderProductService.execute(content);
 }

@@ -1,13 +1,10 @@
 import { Order } from "../../entities/Order";
+import { PriceOrderService } from "../../services/orders/priceOrderService";
 import { IContext } from "../../types/IContext";
 
-export async function priceOrderResolver(
-  parent: Order,
-  _,
-  context: IContext
-) {
+export async function priceOrderResolver(parent: Order, _, context: IContext) {
   const { orderProducts } = parent;
-  const { services } = context;
+  const priceOrderService = new PriceOrderService();
 
-  return await services.priceOrderService.execute(orderProducts);
+  return await priceOrderService.execute(orderProducts);
 }

@@ -1,3 +1,4 @@
+import { GetProductsService } from "../../services/products/getProductsService";
 import { IContext } from "../../types/IContext";
 
 enum OrderProduct {
@@ -25,10 +26,11 @@ export async function getProductResolver(
   context: IContext
 ) {
   const { id, query } = args;
-  const { services } = context;
+  const { productRepository } = context.repositories;
   const { name, order, price, restaurantId } = query;
+  const getProductsService = new GetProductsService(productRepository);
 
-  return await services.getProductsService.execute({
+  return await getProductsService.execute({
     name,
     price,
     orderBy: order?.toString(),

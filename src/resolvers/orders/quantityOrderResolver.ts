@@ -1,4 +1,5 @@
 import { Order } from "../../entities/Order";
+import { QuantityOrderService } from "../../services/orders/quantityOrderService";
 import { IContext } from "../../types/IContext";
 
 export async function quantityOrderResolver(
@@ -7,7 +8,7 @@ export async function quantityOrderResolver(
   context: IContext
 ) {
   const { orderProducts } = parent;
-  const { services } = context;
+  const quantityOrderService = new QuantityOrderService();
 
-  return await services.quantityOrderService.execute(orderProducts);
+  return await quantityOrderService.execute(orderProducts);
 }

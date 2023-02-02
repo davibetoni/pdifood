@@ -1,4 +1,5 @@
 import { GraphQLError } from "graphql";
+import { CreateRestaurantService } from "../../services/restaurants/createRestaurantService";
 import { IContext } from "../../types/IContext";
 
 interface RestaurantContent {
@@ -11,7 +12,10 @@ export async function createRestaurantResolver(
   context: IContext
 ) {
   const { content } = args;
-  const { services, userAttributes } = context;
+  const { repositories, userAttributes } = context;
+  const createRestaurantService = new CreateRestaurantService(
+    repositories.restaurantRepository
+  );
 
   if (userAttributes.role !== "admin") {
     throw new GraphQLError(
@@ -19,5 +23,5 @@ export async function createRestaurantResolver(
     );
   }
 
-  return await services.createRestaurantService.execute(content);
+  return await createRestaurantService.execute(content);
 }
