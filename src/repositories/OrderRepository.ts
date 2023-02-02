@@ -12,5 +12,5 @@ export interface OrderRepository{
   createOrder(content: OrderContent): Promise<Order>
   finishOrder(order: Order, finishedBy: string): Promise<Order>
   getOrderById(id: string): Promise<Order>
-  getOrders(query: OrderParams): Promise<Order[]>
+  getOrders(query: OrderParams, userId: string): Promise<Order[]>
 }

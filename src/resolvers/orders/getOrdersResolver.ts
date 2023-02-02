@@ -17,8 +17,13 @@ export async function getOrdersResolver(
   const { id, query } = args;
   const { services, userAttributes } = context;
 
-  if (id) {
-    return [await services.getOrderByIdService.execute(id)];
+  let userId: string;
+  if (userAttributes.role !== "admin") {
+    userId = userAttributes.id;
   }
-  return await services.getOrdersService.execute(query);
+
+  if (id) {
+    return [await services.getOrderByIdService.execute(id, userId)];
+  }
+  return await services.getOrdersService.execute(query, userId);
 }

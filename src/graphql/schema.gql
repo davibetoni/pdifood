@@ -49,6 +49,11 @@ enum OrderingProduct {
 # -------------------------
 
 # ------- Types ---------
+type FinishOrder {
+  id: String
+  finishedAt: String
+}
+
 type Product {
   id: String
   restaurantId: String
@@ -94,7 +99,7 @@ type Mutation {
   createRestaurant(content: RestaurantInput!): Restaurant
   createProduct(content: ProductInput!): Product
   createOrder: Order
-  finishOrder(content: OrderInput!): Order
+  finishOrder(content: OrderInput!): FinishOrder
   createOrderProduct(content: OrderProductInput!): OrderProduct
 }
 

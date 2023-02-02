@@ -4,9 +4,15 @@ import { OrderRepository } from "../../repositories/OrderRepository";
 export class GetOrderByIdService {
   constructor(private orderRepository: OrderRepository) {}
 
-  async execute(id: string) {
+  async execute(id: string, userId: string) {
     try {
-      return await this.orderRepository.getOrderById(id);
+      const order = await this.orderRepository.getOrderById(id);
+
+      if (userId && order.id != userId) {
+        throw new GraphQLError("You can't see this order.");
+      }
+
+      return order;
     } catch (error) {
       throw new GraphQLError(error);
     }

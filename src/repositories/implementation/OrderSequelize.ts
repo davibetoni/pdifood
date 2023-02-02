@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import { Order } from "../../entities/Order";
 import { OrderProduct } from "../../entities/OrderProduct";
 import { OrderContent, OrderParams, OrderRepository } from "../OrderRepository";
@@ -15,7 +16,7 @@ export class OrderSequelize implements OrderRepository {
       include: { model: OrderProduct, as: "orderProducts" },
     });
   }
-  async getOrders(query: OrderParams): Promise<Order[]> {
+  async getOrders(query: OrderParams, userId: string): Promise<Order[]> {
     let where = {};
 
     if (query) {
@@ -25,6 +26,10 @@ export class OrderSequelize implements OrderRepository {
           finishedAt: finishedAt,
         };
       }
+    }
+
+    if (userId) {
+      where = { [Op.and]: [{ ...where }, { userId }] };
     }
 
     return await Order.findAll({
