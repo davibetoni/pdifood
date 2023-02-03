@@ -1,6 +1,4 @@
-import { createProductResolver } from "./products/createProductResolver";
 import { createRestaurantResolver } from "./restaurants/createRestaurantResolver";
-import { getProductResolver } from "./products/getProductsResolver";
 import { getRestaurantsResolver } from "./restaurants/getRestaurantsResolver";
 import { createCouponResolver, getCouponsResolver } from "./coupons";
 import {
@@ -14,6 +12,7 @@ import {
   priceOrderResolver,
   quantityOrderResolver,
 } from "./orders";
+import { createProductResolver, getProductResolver } from "./products";
 
 export const resolvers = {
   Query: {
