@@ -6,7 +6,6 @@ import { resolvers } from "./resolvers";
 import "./database";
 import { authMiddleware } from "./middleware/authMiddleware";
 import { IContext } from "./types/IContext";
-import { createRepositories } from "./repositories";
 
 const typeDefs = fs.readFileSync(
   path.resolve(__dirname, "graphql/schema.gql"),
@@ -23,9 +22,8 @@ async function setup() {
     listen: { port: 4000 },
     context: async ({ req, res }) => {
       const userAttributes = await authMiddleware(req, res);
-      const repositories = createRepositories();
 
-      return { userAttributes, repositories };
+      return { userAttributes };
     },
   });
 
