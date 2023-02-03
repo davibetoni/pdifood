@@ -9,8 +9,7 @@ import { getOrderProductsResolver } from "./order_products/getOrderProductsResol
 import { createOrderProductResolver } from "./order_products/createOrderProductResolver";
 import { quantityOrderResolver } from "./orders/quantityOrderResolver";
 import { priceOrderResolver } from "./orders/priceOrderResolver";
-import { createCouponResolver } from "./coupons/createCouponResolver";
-import { getCouponsResolver } from "./coupons/getCouponsResolver";
+import { createCouponResolver, getCouponsResolver } from "./coupons";
 
 export const resolvers = {
   Query: {
