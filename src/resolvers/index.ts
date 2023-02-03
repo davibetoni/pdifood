@@ -1,5 +1,3 @@
-import { createRestaurantResolver } from "./restaurants/createRestaurantResolver";
-import { getRestaurantsResolver } from "./restaurants/getRestaurantsResolver";
 import { createCouponResolver, getCouponsResolver } from "./coupons";
 import {
   createOrderProductResolver,
@@ -13,6 +11,10 @@ import {
   quantityOrderResolver,
 } from "./orders";
 import { createProductResolver, getProductResolver } from "./products";
+import {
+  createRestaurantResolver,
+  getRestaurantsResolver,
+} from "./restaurants";
 
 export const resolvers = {
   Query: {
