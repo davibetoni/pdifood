@@ -5,11 +5,10 @@ import { getRestaurantsResolver } from "./restaurants/getRestaurantsResolver";
 import { createOrderResolver } from "./orders/createOrderResolver";
 import { getOrdersResolver } from "./orders/getOrdersResolver";
 import { finishOrderResolver } from "./orders/finishOrderResolver";
-import { getOrderProductsResolver } from "./order_products/getOrderProductsResolver";
-import { createOrderProductResolver } from "./order_products/createOrderProductResolver";
 import { quantityOrderResolver } from "./orders/quantityOrderResolver";
 import { priceOrderResolver } from "./orders/priceOrderResolver";
 import { createCouponResolver, getCouponsResolver } from "./coupons";
+import { createOrderProductResolver, getOrderProductsResolver } from "./order_products";
 
 export const resolvers = {
   Query: {
