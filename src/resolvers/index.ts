@@ -2,13 +2,18 @@ import { createProductResolver } from "./products/createProductResolver";
 import { createRestaurantResolver } from "./restaurants/createRestaurantResolver";
 import { getProductResolver } from "./products/getProductsResolver";
 import { getRestaurantsResolver } from "./restaurants/getRestaurantsResolver";
-import { createOrderResolver } from "./orders/createOrderResolver";
-import { getOrdersResolver } from "./orders/getOrdersResolver";
-import { finishOrderResolver } from "./orders/finishOrderResolver";
-import { quantityOrderResolver } from "./orders/quantityOrderResolver";
-import { priceOrderResolver } from "./orders/priceOrderResolver";
 import { createCouponResolver, getCouponsResolver } from "./coupons";
-import { createOrderProductResolver, getOrderProductsResolver } from "./order_products";
+import {
+  createOrderProductResolver,
+  getOrderProductsResolver,
+} from "./order_products";
+import {
+  createOrderResolver,
+  finishOrderResolver,
+  getOrdersResolver,
+  priceOrderResolver,
+  quantityOrderResolver,
+} from "./orders";
 
 export const resolvers = {
   Query: {
