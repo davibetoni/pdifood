@@ -1,6 +1,7 @@
 import Sequelize, { Model } from "sequelize";
 import { uuid } from "uuidv4";
 import { sequelize } from "../database";
+import { OrderCoupon } from "./OrderCoupon";
 import { OrderProduct } from "./OrderProduct";
 
 interface OrderAttributes {
@@ -16,7 +17,7 @@ export class Order extends Model implements OrderAttributes {
   finishedBy: string;
   finishedAt: Date;
   value: number;
-  orderProducts: OrderProduct[]
+  orderProducts: OrderProduct[];
 }
 
 Order.init(
@@ -59,6 +60,28 @@ Order.hasMany(OrderProduct, {
 });
 
 OrderProduct.belongsTo(Order, {
+  as: "order",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+  foreignKey: {
+    allowNull: false,
+    name: "orderId",
+    field: "order_id",
+  },
+});
+
+Order.hasMany(OrderCoupon, {
+  as: "orderCoupons",
+  onDelete: "CASCADE",
+  onUpdate: "CASCADE",
+  foreignKey: {
+    allowNull: false,
+    name: "orderId",
+    field: "order_id",
+  },
+});
+
+OrderCoupon.belongsTo(Order, {
   as: "order",
   onDelete: "CASCADE",
   onUpdate: "CASCADE",

@@ -33,6 +33,11 @@ input CouponInput {
   percent: Boolean
   validDate: Datetime
 }
+
+input OrderCouponInput {
+  orderId: String!
+  couponId: String!
+}
 # -------------------------
 
 # ------- Querys ---------
@@ -115,6 +120,11 @@ type Coupon {
   percent: Boolean
   validDate: Datetime
 }
+
+type OrderCoupon {
+  orderId: String
+  couponId: String
+}
 # -------------------------
 
 type Mutation {
@@ -124,6 +134,7 @@ type Mutation {
   finishOrder(content: OrderInput!): FinishOrder
   createOrderProduct(content: OrderProductInput!): OrderProduct
   createCoupon(content: CouponInput): Coupon
+  createOrderCoupon(content: OrderCouponInput): OrderCoupon
 }
 
 type Query {

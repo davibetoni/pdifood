@@ -15,6 +15,7 @@ import {
   createRestaurantResolver,
   getRestaurantsResolver,
 } from "./restaurants";
+import { createOrderCouponResolver } from "./order_coupons";
 
 export const resolvers = {
   Query: {
@@ -31,6 +32,7 @@ export const resolvers = {
     finishOrder: finishOrderResolver,
     createOrderProduct: createOrderProductResolver,
     createCoupon: createCouponResolver,
+    createOrderCoupon: createOrderCouponResolver,
   },
   Order: {
     totalQuantity: quantityOrderResolver,
