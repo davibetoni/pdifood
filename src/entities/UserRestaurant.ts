@@ -4,6 +4,8 @@ import { sequelize } from "../database";
 interface CreateUserRestaurantAttributes {
   restaurantId: string;
   userId: string;
+  userName: string;
+  restaurantName: string;
 }
 
 export class UserRestaurant
@@ -12,6 +14,8 @@ export class UserRestaurant
 {
   restaurantId: string;
   userId: string;
+  userName: string;
+  restaurantName: string;
 }
 
 UserRestaurant.init(
@@ -23,6 +27,12 @@ UserRestaurant.init(
     restaurantId: {
       type: Sequelize.STRING,
       primaryKey: true,
+    },
+    userName: {
+      type: Sequelize.STRING,
+    },
+    restaurantName: {
+      type: Sequelize.STRING,
     },
   },
   {

@@ -7,6 +7,13 @@ input RestaurantInput {
   cnpj: String!
 }
 
+input UserRestaurantInput {
+  userId: String!
+  restaurantId: String!
+  userName: String
+  restaurantName: String
+}
+
 input ProductInput {
   restaurantId: String!
   name: String!
@@ -73,6 +80,13 @@ type FinishOrder {
   finishedAt: String
 }
 
+type UserRestaurant {
+  userId: String
+  restaurantId: String
+  userName: String
+  restaurantName: String
+}
+
 type Product {
   id: String
   restaurantId: String
@@ -133,8 +147,9 @@ type Mutation {
   createOrder: Order
   finishOrder(content: OrderInput!): FinishOrder
   createOrderProduct(content: OrderProductInput!): OrderProduct
-  createCoupon(content: CouponInput): Coupon
-  createOrderCoupon(content: OrderCouponInput): OrderCoupon
+  createCoupon(content: CouponInput!): Coupon
+  createOrderCoupon(content: OrderCouponInput!): OrderCoupon
+  createUserRestaurant(content: UserRestaurantInput!): UserRestaurant
 }
 
 type Query {

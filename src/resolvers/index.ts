@@ -13,6 +13,7 @@ import {
   getRestaurantsResolver,
 } from "./restaurants";
 import { createOrderCouponResolver } from "./order_coupons";
+import createUserRestaurantResolver from "./user_restaurants";
 
 export const resolvers = {
   Query: {
@@ -29,6 +30,7 @@ export const resolvers = {
     createOrderProduct: createOrderProductResolver,
     createCoupon: createCouponResolver,
     createOrderCoupon: createOrderCouponResolver,
+    createUserRestaurant: createUserRestaurantResolver,
   },
   Order: {
     totalQuantity: quantityOrderResolver,
