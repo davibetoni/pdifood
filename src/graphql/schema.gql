@@ -141,6 +141,5 @@ type Query {
   restaurants(id: String, query: String): [Restaurant]!
   products(id: String, query: ProductQuery): [Product]!
   orders(id: String, query: OrderQuery): [Order]!
-  orderProducts(orderId: String, productId: String): [OrderProduct]!
   coupons(id: String, query: CouponQuery): [Coupon]!
 }

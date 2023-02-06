@@ -1,8 +1,5 @@
 import { createCouponResolver, getCouponsResolver } from "./coupons";
-import {
-  createOrderProductResolver,
-  getOrderProductsResolver,
-} from "./order_products";
+import { createOrderProductResolver } from "./order_products";
 import {
   createOrderResolver,
   finishOrderResolver,
@@ -22,7 +19,6 @@ export const resolvers = {
     restaurants: getRestaurantsResolver,
     products: getProductResolver,
     orders: getOrdersResolver,
-    orderProducts: getOrderProductsResolver,
     coupons: getCouponsResolver,
   },
   Mutation: {
