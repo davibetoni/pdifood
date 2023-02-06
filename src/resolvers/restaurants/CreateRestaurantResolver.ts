@@ -1,4 +1,5 @@
 import { GraphQLError } from "graphql";
+import { Role } from "../../helpers/role";
 import { CreateRestaurantService } from "../../services/restaurants/createRestaurantService";
 import { IContext } from "../../types/IContext";
 
@@ -13,7 +14,7 @@ export class CreateRestaurantResolver {
     const { content } = args;
     const { userAttributes } = context;
 
-    if (userAttributes.role !== "admin") {
+    if (userAttributes.role !== Role.Admin) {
       throw new GraphQLError(
         `${userAttributes.name}, you aren't authorized to create restaurants.`
       );

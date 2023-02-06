@@ -1,3 +1,4 @@
+import { Role } from "../../helpers/role";
 import { GetOrderByIdService } from "../../services/orders/getOrderById";
 import { GetOrdersService } from "../../services/orders/getOrdersService";
 import { IContext } from "../../types/IContext";
@@ -22,7 +23,7 @@ export class GetOrdersResolver {
     const { userAttributes } = context;
 
     let userId: string;
-    if (userAttributes.role !== "admin") {
+    if (userAttributes.role !== Role.Admin) {
       userId = userAttributes.id;
     }
 

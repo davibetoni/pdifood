@@ -1,5 +1,6 @@
 import { GraphQLError } from "graphql";
 import { Json } from "sequelize/types/utils";
+import { Role } from "../../helpers/role";
 import { CreateProductService } from "../../services/products/createProductService";
 import { IContext } from "../../types/IContext";
 
@@ -20,7 +21,7 @@ export class CreateProductResolver {
     const { content } = args;
     const { userAttributes } = context;
 
-    if (userAttributes.role === "customer") {
+    if (userAttributes.role === Role.Customer) {
       throw new GraphQLError(
         `${userAttributes.name}, you aren't authorized to create products.`
       );

@@ -1,4 +1,5 @@
 import { GraphQLError } from "graphql";
+import { Role } from "../../helpers/role";
 import { CreateCouponService } from "../../services/coupons/createCouponService";
 import { IContext } from "../../types/IContext";
 
@@ -18,7 +19,7 @@ export class CreateCouponResolver {
     const { content } = args;
     const { userAttributes } = context;
 
-    if (userAttributes.role !== "admin") {
+    if (userAttributes.role !== Role.Admin) {
       throw new GraphQLError("You can't create a Coupon.");
     }
 

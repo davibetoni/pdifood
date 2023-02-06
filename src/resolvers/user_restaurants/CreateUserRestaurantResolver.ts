@@ -1,4 +1,5 @@
 import { GraphQLError } from "graphql";
+import { Role } from "../../helpers/role";
 import { CreateUserRestaurantService } from "../../services/user_restaurants/CreateUserRestaurantService";
 import { IContext } from "../../types/IContext";
 
@@ -18,7 +19,7 @@ export class CreateUserRestaurantResolver {
     const { content } = args;
     const { role } = context.userAttributes;
 
-    if (role != "admin") {
+    if (role != Role.Admin) {
       throw new GraphQLError("You cant associate a user to a restaurant");
     }
 

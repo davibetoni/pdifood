@@ -1,4 +1,5 @@
 import { GraphQLError } from "graphql";
+import { Role } from "../../helpers/role";
 import { FinishOrderService } from "../../services/orders/finishOrderService";
 import { IContext } from "../../types/IContext";
 
@@ -13,7 +14,7 @@ export class FinishOrderResolver {
     const { userAttributes } = context;
     const { content } = args;
 
-    if (userAttributes.role === "customer") {
+    if (userAttributes.role === Role.Customer) {
       throw new GraphQLError(
         `${userAttributes.name} you can't finish a order.`
       );

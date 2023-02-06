@@ -1,4 +1,5 @@
 import { GraphQLError } from "graphql";
+import { Role } from "../../helpers/role";
 import {
   ProductAttributes,
   ProductRepository,
@@ -21,7 +22,7 @@ export class CreateProductService {
       userId
     );
 
-    if (userRole === "manager" && !userRestaurant) {
+    if (userRole === Role.Manager && !userRestaurant) {
       throw new GraphQLError(
         `${manager.name}, you aren't authorized to create products on this restaurant.`
       );
