@@ -3,6 +3,7 @@ import { sequelize } from "../database";
 import { randomUUID as uuid } from "node:crypto";
 import { yearFromNow } from "../helpers/date";
 import { OrderCoupon } from "./OrderCoupon";
+import { Order } from "./Order";
 
 interface CreateCouponAttributes {
   code: string;
@@ -58,26 +59,14 @@ Coupon.beforeCreate((coupon) => {
   coupon.id = uuid();
 
   if (!coupon.validDate) {
-    coupon.validDate = yearFromNow()
+    coupon.validDate = yearFromNow();
   }
 });
 
-Coupon.hasMany(OrderCoupon, {
-  as: "orderCoupons",
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
-  foreignKey: {
-    allowNull: false,
-    name: "couponId",
-    field: "coupon_id",
-  },
-});
-
-OrderCoupon.belongsTo(Coupon, {
-  as: "coupon",
-  onDelete: "CASCADE",
-  onUpdate: "CASCADE",
-  foreignKey: {
+Order.belongsToMany(Coupon, {
+  as: "coupons",
+  through: OrderCoupon,
+  otherKey: {
     allowNull: false,
     name: "couponId",
     field: "coupon_id",

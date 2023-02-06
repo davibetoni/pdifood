@@ -1,6 +1,7 @@
 import Sequelize, { Model } from "sequelize";
 import { uuid } from "uuidv4";
 import { sequelize } from "../database";
+import { Coupon } from "./Coupon";
 import { OrderCoupon } from "./OrderCoupon";
 import { OrderProduct } from "./OrderProduct";
 
@@ -18,6 +19,7 @@ export class Order extends Model implements OrderAttributes {
   finishedAt: Date;
   value: number;
   orderProducts: OrderProduct[];
+  coupons: Coupon[]
 }
 
 Order.init(

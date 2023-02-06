@@ -1,6 +1,10 @@
 import { Op } from "sequelize";
 import { Coupon } from "../../entities/Coupon";
-import { CouponRepository, CouponsParams } from "../CouponRepository";
+import {
+  CouponRepository,
+  CouponsParams,
+  CouponsQuery,
+} from "../CouponRepository";
 
 export class CouponSequelize implements CouponRepository {
   async getCouponByCode(code: string): Promise<Coupon> {
@@ -15,10 +19,10 @@ export class CouponSequelize implements CouponRepository {
     return await Coupon.create(content);
   }
 
-  async getCoupons(query: CouponsParams): Promise<Coupon[]> {
+  async getCoupons(query: CouponsQuery): Promise<Coupon[]> {
     let where = {};
     if (query) {
-      const { code, percent, validDate, value } = query;
+      const { ids, code, percent, validDate, value } = query;
 
       if (code) {
         where = { code: { [Op.like]: `%${code}%` } };
@@ -39,6 +43,12 @@ export class CouponSequelize implements CouponRepository {
       if (value) {
         where = {
           [Op.and]: [{ ...where }, { value }],
+        };
+      }
+
+      if (ids) {
+        where = {
+          [Op.and]: [{ ...where }, { id: ids }],
         };
       }
     }

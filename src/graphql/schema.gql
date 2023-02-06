@@ -94,8 +94,7 @@ type Restaurant {
 }
 
 type OrderProduct {
-  orderId: String
-  productId: String
+  product: Product
   quantity: Int
   price: Float
   newIngredients: Json
@@ -109,6 +108,7 @@ type Order {
   totalQuantity: Int
   totalPrice: Float
   orderProducts: [OrderProduct]
+  coupons: [Coupon]
   createdAt: Datetime
   updatedAt: Datetime
 }

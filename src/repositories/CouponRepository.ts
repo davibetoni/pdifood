@@ -7,8 +7,12 @@ export interface CouponsParams {
   validDate: Date;
 }
 
+export interface CouponsQuery extends CouponsParams{
+  ids: string[];
+}
+
 export interface CouponRepository {
-  getCoupons(query: CouponsParams): Promise<Coupon[]>;
+  getCoupons(query: CouponsQuery): Promise<Coupon[]>;
   getCouponById(id: string): Promise<Coupon>;
   getCouponByCode(code: string): Promise<Coupon>;
   createCoupon(content: CouponsParams): Promise<Coupon>;

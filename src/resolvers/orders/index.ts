@@ -1,4 +1,6 @@
 import { Order } from "../../entities/Order";
+import { CouponSequelize } from "../../repositories/implementation/CouponSequelize";
+import { OrderCouponSequelize } from "../../repositories/implementation/OrderCouponSequelize";
 import { OrderSequelize } from "../../repositories/implementation/OrderSequelize";
 import { CreateOrderService } from "../../services/orders/createOrderService";
 import { FinishOrderService } from "../../services/orders/finishOrderService";
