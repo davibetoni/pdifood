@@ -1,13 +1,13 @@
 import { GraphQLError } from "graphql";
 import {
   CouponRepository,
-  CouponsParams,
+  CouponsQuery,
 } from "../../repositories/CouponRepository";
 
 export class GetCouponsService {
   constructor(private couponRepository: CouponRepository) {}
 
-  async execute(query: CouponsParams) {
+  async execute(query: CouponsQuery) {
     try {
       return await this.couponRepository.getCoupons(query);
     } catch (error) {
